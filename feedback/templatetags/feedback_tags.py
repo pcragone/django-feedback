@@ -1,4 +1,4 @@
-from itertools import chain
+from itertools import chain, islice
 from operator import attrgetter
 from django.template import Library, Node
 
@@ -15,6 +15,6 @@ def get_feedback(parser, token):
     
 class FeedbackNode(Node):
     def render(self, context):
-        context['feedback'] = sorted(chain(Feedback.objects.all(), AnonymousFeedback.objects.all()),
-                                    key=attrgetter('time'), reverse=True)
+        context['feedback'] = islice(sorted(chain(Feedback.objects.all(), AnonymousFeedback.objects.all()),
+                                    key=attrgetter('time'), reverse=True), 10)
         return ''

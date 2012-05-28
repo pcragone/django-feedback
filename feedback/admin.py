@@ -1,5 +1,5 @@
-    from django.contrib import admin
-from django.conf.urls.defaults import *
+from django.contrib import admin
+from django.conf.urls import *
 from django.conf import settings
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
@@ -30,7 +30,7 @@ class FeedbackAdmin(admin.ModelAdmin):
 
 admin.site.register(Feedback, FeedbackAdmin)
 
-if getattr(settings, 'ALLOW_ANONYMOUS_FEEDBACK', False):
+if getattr(settings, 'ALLOW_ANONYMOUS_FEEDBACK', True):
     admin.site.register(AnonymousFeedback, FeedbackAdmin)
 
 admin.site.index_template = 'feedback/index.html'
